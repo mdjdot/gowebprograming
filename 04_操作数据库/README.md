@@ -1,6 +1,6 @@
 # database/sql
-	• database/sql包定义了对数据库的一系列错误
-	• database/sql/driver包定义了需要被数据库驱动实现的接口
+- database/sql包定义了对数据库的一系列错误
+- database/sql/driver包定义了需要被数据库驱动实现的接口
 
 # 获取数据库连接
 ```
@@ -159,5 +159,5 @@ func Test_Runtest(t *testing.T) {
 }
 ```
 
-go test github.com/mdjdot/gocoreprograming/dbs/model -v  
+`go test github.com/mdjdot/gocoreprograming/dbs/model -v`  
 可以在TestMain中的m.Run之前setup，m.run之后teardown

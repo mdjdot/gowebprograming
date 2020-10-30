@@ -5,14 +5,14 @@ HTTP是无状态协议，服务器不能区分请求是不是来自于同一个�
 Cookie是服务器保存在浏览器上的信息。浏览器每次向服务器请求时都会将Cookie发送给服务器
 
 # Cookie的运行原理
-	1. 浏览器第一次向服务器发送请求时在服务器端创建Cookie
-	2. 服务器端创建的Cookie以响应头的而方式发送给浏览器
-	3. 之后浏览器发送请求时带上Cookie
-	4. 服务器端通过Cookie区分不同的用户
+1. 浏览器第一次向服务器发送请求时在服务器端创建Cookie
+2. 服务器端创建的Cookie以响应头的而方式发送给浏览器
+3. 之后浏览器发送请求时带上Cookie
+4. 服务器端通过Cookie区分不同的用户
 
 # Cookie的用途
-	1. 广告推荐
-	2. 免登录
+1. 广告推荐
+2. 免登录
 
 # Http.Cookie及常用函数
 
@@ -219,7 +219,7 @@ Connection: Keep-Alive
 为了减少浏览器请求中的Cookie的数量，可以使用Session。Session是一个特殊的Cookie，这个Cookie对应服务器端的一个Session，通过这个Cookie可以获取保存其他信息的Session
 
 # Session运行原理
-	1. 浏览器第一次向服务器发送请求时，服务器端创建Session，设置一个GUID（可以通过UUID生成）
-	2. 服务器端创建一个Cookie，把Cookie的值设为Session的ID值，并将Cookie发送给浏览器
-	3. 浏览器之后发送请求带上Cookie
-	4. 服务器端获取到Cookie，根据Cookie的值找到服务器中对应的Session
+1. 浏览器第一次向服务器发送请求时，服务器端创建Session，设置一个GUID（可以通过UUID生成）
+2. 服务器端创建一个Cookie，把Cookie的值设为Session的ID值，并将Cookie发送给浏览器
+3. 浏览器之后发送请求带上Cookie
+4. 服务器端获取到Cookie，根据Cookie的值找到服务器中对应的Session

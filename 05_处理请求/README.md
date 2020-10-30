@@ -699,91 +699,91 @@ type ResponseWriter interface {
 }
 ```
 
-	1. 给客户端相应一个字符串
-```
-package main
-import (
-    "net/http"
-)
-func handler(w http.ResponseWriter, r *http.Request) {
-    w.Write([]byte("你的请求我已经收到"))
-}
-func main() {
-    http.HandleFunc("/", handler)
-    http.ListenAndServe(":8080", nil)
-}
-```
-浏览器显示  
-你的请求我已经收到
-
-响应报文内容
-```
-HTTP/1.1 200 OK
-Date: Tue, 07 Jan 2020 13:08:11 GMT
-Content-Length: 27
-Content-Type: text/plain; charset=utf-8
-```
-
-	2. 给客户端响应一个HTML页面
-```
-    package main
+1. 给客户端相应一个字符串
+	```
+	package main
 	import (
 	    "net/http"
 	)
 	func handler(w http.ResponseWriter, r *http.Request) {
-	    html := `<html>
-	<head>
-	    <title>网页title</title>
-	    <meta charset="utf-8"/>
-	</head>
-	<body>
-	    <h1>网页body</h1>
-	</body>
-	</html>`
-	    w.Write([]byte(html))
+	    w.Write([]byte("你的请求我已经收到"))
 	}
 	func main() {
 	    http.HandleFunc("/", handler)
 	    http.ListenAndServe(":8080", nil)
 	}
-```
+	```
+	浏览器显示  
+	你的请求我已经收到
 
-	3. 给客户端响应JSON格式数据
-```
-    package main
-	import (
-	    "encoding/json"
-	    "fmt"
-	    "net/http"
-	)
-	type User struct {
-	    ID       int
-	    UserName string
-	    Password string
-	}
-	func handler(w http.ResponseWriter, r *http.Request) {
-	    w.Header().Set("Content-Type", "application/json")
-	    user := User{
-	        ID:       1,
-	        UserName: "admin",
-	        Password: "123456",
-	    }
-	    json, err := json.Marshal(user)
-	    if err != nil {
-	        fmt.Println(err)
-	        return
-	    }
-	    w.Write(json)
-	}
-	func main() {
-	    http.HandleFunc("/", handler)
-	    http.ListenAndServe(":8080", nil)
-	}
-```
+	响应报文内容
+	```
+	HTTP/1.1 200 OK
+	Date: Tue, 07 Jan 2020 13:08:11 GMT
+	Content-Length: 27
+	Content-Type: text/plain; charset=utf-8
+	```
 
-	4. 让客户端重定向
-```
-    package main
+2. 给客户端响应一个HTML页面
+	```
+		package main
+		import (
+		    "net/http"
+		)
+		func handler(w http.ResponseWriter, r *http.Request) {
+		    html := `<html>
+		<head>
+		    <title>网页title</title>
+		    <meta charset="utf-8"/>
+		</head>
+		<body>
+		    <h1>网页body</h1>
+		</body>
+		</html>`
+		    w.Write([]byte(html))
+		}
+		func main() {
+		    http.HandleFunc("/", handler)
+		    http.ListenAndServe(":8080", nil)
+		}
+	```
+
+3. 给客户端响应JSON格式数据
+	```
+		package main
+		import (
+		    "encoding/json"
+		    "fmt"
+		    "net/http"
+		)
+		type User struct {
+		    ID       int
+		    UserName string
+		    Password string
+		}
+		func handler(w http.ResponseWriter, r *http.Request) {
+		    w.Header().Set("Content-Type", "application/json")
+		    user := User{
+		        ID:       1,
+		        UserName: "admin",
+		        Password: "123456",
+		    }
+		    json, err := json.Marshal(user)
+		    if err != nil {
+		        fmt.Println(err)
+		        return
+		    }
+		    w.Write(json)
+		}
+		func main() {
+		    http.HandleFunc("/", handler)
+		    http.ListenAndServe(":8080", nil)
+		}
+	```
+
+4. 让客户端重定向
+	```
+	package main
 	import (
 	    "net/http"
 	)
@@ -795,12 +795,12 @@ Content-Type: text/plain; charset=utf-8
 	    http.HandleFunc("/", handler)
 	    http.ListenAndServe(":8080", nil)
 	}
-```
+	```
 
 	响应报文
-```
-    HTTP/1.1 302 Found
+	```
+	HTTP/1.1 302 Found
 	Location: https://www.baidu.com
 	Date: Tue, 07 Jan 2020 13:25:59 GMT
 	Content-Length: 0
-```
+	```

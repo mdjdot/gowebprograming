@@ -1,7 +1,7 @@
 # 模板引擎
-	• go提供了 text/template 和 html/template 两个模板引擎
-	• 通过模板引擎把数据和模板组合成HTML
-	• 处理器调用模板引擎并将生成的HTML返回给客户端
+- go提供了 text/template 和 html/template 两个模板引擎
+- 通过模板引擎把数据和模板组合成HTML
+- 处理器调用模板引擎并将生成的HTML返回给客户端
 
 # 使用模板
 hello.html
@@ -171,12 +171,14 @@ func ParseGlob(pattern string) (*Template, error) {
 ```
 
 # 解析模板
-	• t, err := template.ParseFiles("hello.html")
-	等价于
+- t, err := template.ParseFiles("hello.html")
+等价于
+	```
 	t := template.New("hello.html")
 	t, err :=t.ParseFiles("hello.html")
-	• t := template.Must(template.ParseFiles("hello.html"))
-	• template.ParseGlob("*.html")可以创建并解析匹配的文件里的模板，内容为解析后的第一个文件的内容
+	```
+- t := template.Must(template.ParseFiles("hello.html"))
+- template.ParseGlob("*.html")可以创建并解析匹配的文件里的模板，内容为解析后的第一个文件的内容
 	
 # 执行模板
 ```
@@ -223,29 +225,29 @@ func (t *Template) ExecuteTemplate(wr io.Writer, name string, data inter
 ```
 
 Execute方法将解析好的模板应用到data上，并输出写入wr  
-	• template.Execute只会调用第一个模板  
-	• template.ExecuteTemplate可以调用其他模板  
-	t := template.ParseFiles("hello.html", "hello2.html")  
-	T.ExecuteTemplate(w, "hello2.html"，"显示hello2.html")
+- template.Execute只会调用第一个模板  
+- template.ExecuteTemplate可以调用其他模板  
+t := template.ParseFiles("hello.html", "hello2.html")  
+T.ExecuteTemplate(w, "hello2.html"，"显示hello2.html")
 	
 # 动作
 模板的动作是嵌入到模板的命令  
 {{.}}：代表传递给模板的数据  
-	• 条件动作  
+-  条件动作  
 	arg是传递给条件动作的参数，该值可以是一个字符串常量、一个变量、一个返回单个值的函数获取方法等  
-```
-    {{if arg}}
+	```
+	{{if arg}}
 	要显示的内容
 	{{end}}
-```
-```
+	```
+	```
 	{{if arg}}
 	要显示的内容
 	{{else}}
 	要显示的内容
 	{{end}}
-```
-```
+	```
+	```
 	<!DOCTYPE html>
 	<html lang="en">
 	<head>
@@ -263,8 +265,8 @@ Execute方法将解析好的模板应用到data上，并输出写入wr
 	    {{end}}
 	</body>
 	</html>
-```
-```
+	```
+	```
 	package main
 	import (
 	    "fmt"
@@ -284,42 +286,42 @@ Execute方法将解析好的模板应用到data上，并输出写入wr
 	    http.HandleFunc("/", handler)
 	    http.ListenAndServe(":8080", nil)
 	}
-```
-	• 迭代动作
-	迭代动作可以对数组、切片、映射或者通道进行迭代
+	```
+-  迭代动作  
+	迭代动作可以对数组、切片、映射或者通道进行迭代  
 	迭代数组
-```
+	```
 	{{range .}}
 	遍历到的元素是{{.}}
 	{{end}}
-```
-```
+	```
+	```
 	{{range .}}
 	遍历到的元素是{{.}}
 	{{else}}
 	没有任何元素
 	{{end}}
-```	
+	```	
 	迭代结构体
-```
+	```
 	{{range .Name}}
 	{{else}}
 	没有任何元素
 	{{end}}
-```
+	```
 	迭代Map
-```
+	```
 	{{range &k,$v:=.}}
 	键是{{$k}}，值是{{$v}}
 	{{else}}
 	没有任何元素
 	{{end}}
-```
+	```
 	迭代管道
-```
+	```
 	{{c1|c2|c3}}
-```
-```
+	```
+	```
 	<!DOCTYPE html>
 	<html lang="en">
 	<head>
@@ -337,8 +339,8 @@ Execute方法将解析好的模板应用到data上，并输出写入wr
 	    {{end}}
 	</body>
 	</html>
-```
-```
+	```
+	```
 	package main
 	import (
 	    "fmt"
@@ -366,22 +368,22 @@ Execute方法将解析好的模板应用到data上，并输出写入wr
 	    http.HandleFunc("/", handler)
 	    http.ListenAndServe(":8080", nil)
 	}
-```
-	• 设置动作
+	```
+- 设置动作  
 	设置动作允许在指定的范围内对data设置值
-```
+	```
 	{{with arg}}
 	为传过来的数据设置的新值是{{.}}
 	{{end}}
-```
-```
+	```
+	```
 	{{with arg}}
 	为传过来的数据设置的新值是{{.}}
 	{{else}}
 	传过来的数据仍然是{{.}}
 	{{end}}
-```
-```
+	```
+	```
 	<!DOCTYPE html>
 	<html lang="en">
 	<head>
@@ -404,8 +406,8 @@ Execute方法将解析好的模板应用到data上，并输出写入wr
 	    {{end}}
 	</body>
 	</html>
-```
-```
+	```
+	```
 	package main
 	import (
 	    "fmt"
@@ -424,19 +426,19 @@ Execute方法将解析好的模板应用到data上，并输出写入wr
 	    http.HandleFunc("/", handler)
 	    http.ListenAndServe(":8080", nil)
 	}
-```
+	```
 	
-	• 包含动作
+- 包含动作  
 	包含动作允许用户在一个模板里面包含另一个模板，从而构建出嵌套的模板
-```
+	```
 	{{template "name"}}
-```
-```
+	```
+	```
 	{{template "name" arg}}
-```
-	
-```
-    ./hello.html
+	```
+
+	```
+	./hello.html
 	<!DOCTYPE html>
 	<html lang="en">
 	<head>
@@ -456,8 +458,8 @@ Execute方法将解析好的模板应用到data上，并输出写入wr
 	    {{template "hello2.html" .}}
 	</body>
 	</html>
-```
-```
+	```
+	```
 	./hello2.html
 	<!DOCTYPE html>
 	<html lang="en">
@@ -472,8 +474,8 @@ Execute方法将解析好的模板应用到data上，并输出写入wr
 	    <div>hello2.html模板文件中的数据是：{{.}}</div>
 	</body>
 	</html>
-```
-```
+	```
+	```
 	./main.go
 	package main
 	import (
@@ -493,7 +495,7 @@ Execute方法将解析好的模板应用到data上，并输出写入wr
 	    http.HandleFunc("/", handler)
 	    http.ListenAndServe(":8080", nil)
 	}
-```
+	```
 	• 定义动作
 	定义动作达到不同网页使用相同部分，如导航栏、版权信息、联系信息等
 ```
@@ -562,90 +564,90 @@ Execute方法将解析好的模板应用到data上，并输出写入wr
 	}
 ```
 
-	在不同模板文件中定义同名的模板
+在不同模板文件中定义同名的模板
 ```
-    ./hello.html
-	<!-- 定义模板 -->
-	{{define "model"}}
-	<!DOCTYPE html>
-	<html lang="en">
-	<head>
-	    <meta charset="UTF-8">
-	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-	    <title>模板文件</title>
-	</head>
-	<body>
-	    {{template "content"}}
-	</body>
-	</html>
-	{{end}}
-```
-```
-	./content1.html
-	<!DOCTYPE html>
-	<html lang="en">
-	<head>
-	    <meta charset="UTF-8">
-	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-	    <title>模板文件</title>
-	</head>
-	<body>
-	    {{define "content"}}
-	        <h1>我是content1.html 模板文件中的内容</h1>
-	    {{end}}
-	</body>
-	</html>
+./hello.html
+<!-- 定义模板 -->
+{{define "model"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>模板文件</title>
+</head>
+<body>
+    {{template "content"}}
+</body>
+</html>
+{{end}}
 ```
 ```
-	./content2.html
-	<!DOCTYPE html>
-	<html lang="en">
-	<head>
-	    <meta charset="UTF-8">
-	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-	    <title>模板文件</title>
-	</head>
-	<body>
-	    {{define "content"}}
-	    <h1>我是content2.html 模板文件中的内容</h1>
-	{{end}}
-	</body>
-	</html>
+./content1.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>模板文件</title>
+</head>
+<body>
+    {{define "content"}}
+        <h1>我是content1.html 模板文件中的内容</h1>
+    {{end}}
+</body>
+</html>
+```
+```
+./content2.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>模板文件</title>
+</head>
+<body>
+    {{define "content"}}
+    <h1>我是content2.html 模板文件中的内容</h1>
+{{end}}
+</body>
+</html>
 ```
 ```	
-	./main.go
-	package main
-	import (
-	    "html/template"
-	    "math/rand"
-	    "net/http"
-	    "time"
-	)
-	func handler(w http.ResponseWriter, r *http.Request) {
-	    rand.Seed(time.Now().UnixNano())
-	    var t *template.Template
-	    if rand.Intn(5) > 2 {
-	        t = template.Must(template.ParseFiles("./hello.html", "./content2.html"))
-	    } else {
-	        t = template.Must(template.ParseFiles("./hello.html", "./content1.html"))
-	    }
-	    t.ExecuteTemplate(w, "model", "")
-	}
-	func main() {
-	    http.HandleFunc("/", handler)
-	    http.ListenAndServe(":8080", nil)
-	}
+./main.go
+package main
+import (
+    "html/template"
+    "math/rand"
+    "net/http"
+    "time"
+)
+func handler(w http.ResponseWriter, r *http.Request) {
+    rand.Seed(time.Now().UnixNano())
+    var t *template.Template
+    if rand.Intn(5) > 2 {
+        t = template.Must(template.ParseFiles("./hello.html", "./content2.html"))
+    } else {
+        t = template.Must(template.ParseFiles("./hello.html", "./content1.html"))
+    }
+    t.ExecuteTemplate(w, "model", "")
+}
+func main() {
+    http.HandleFunc("/", handler)
+    http.ListenAndServe(":8080", nil)
+}
 ```	
-	• 块动作
+- 块动作
 	块动作允许定义一个模板并立即使用
-```    
+	```    
 	{{blocking}}
 	{{end}}
-```
-```	
+	```
+	```	
 	./hello.html
 	<!-- 定义模板 -->
 	{{define "model"}}
@@ -664,8 +666,8 @@ Execute方法将解析好的模板应用到data上，并输出写入wr
 	</body>
 	</html>
 	{{end}}
-```
-```	
+	```
+	```	
 	./content1.html
 	<!DOCTYPE html>
 	<html lang="en">
@@ -681,8 +683,8 @@ Execute方法将解析好的模板应用到data上，并输出写入wr
 	    {{end}}
 	</body>
 	</html>
-```
-```	
+	```
+	```	
 	./main.go
 	package main
 	import (
@@ -705,4 +707,4 @@ Execute方法将解析好的模板应用到data上，并输出写入wr
 	    http.HandleFunc("/", handler)
 	    http.ListenAndServe(":8080", nil)
 	}
-```
+	```

@@ -81,8 +81,9 @@ h1{
     color: red;
 }
 ```
-```
+
 ./views/index.html
+```
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -97,8 +98,9 @@ h1{
 </body>
 </html>
 ```
-```
+
 ./main.go
+```
 package main
 import (
     "html/template"
